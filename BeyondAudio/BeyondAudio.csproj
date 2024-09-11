@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Build.ps1" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -106,4 +107,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>powershell -ExecutionPolicy Unrestricted -file "$(ProjectDir)Build.ps1" $(Configuration)</PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -1,4 +1,5 @@
 ﻿using CoreAudio;
+using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -12,14 +13,15 @@ namespace BeyondAudio
 
         public static int Main(string[] args)
         {
-            string exePath = $@"{args[0]}\{BinaryName}.exe";
-            if (args.Length < 2 || string.IsNullOrWhiteSpace(args[0]) || string.IsNullOrWhiteSpace(args[1]) || !File.Exists(exePath))
+            string appPath = GetPathFromRegistry();
+            string exePath = $@"{appPath}\{BinaryName}.exe";
+            if (args.Length < 1 || string.IsNullOrWhiteSpace(args[0]) || string.IsNullOrWhiteSpace(appPath) || !File.Exists(exePath))
                 return -1;
 
-            StartProcess(exePath, args[0]);
+            StartProcess(exePath, appPath);
             Thread.Sleep(500);
 
-            MMDevice targetDevice = FindDevice(args[1]);
+            MMDevice targetDevice = FindDevice(args[0]);
             var processes = Process.GetProcessesByName("BeyondATC");
 
             if (targetDevice == null || processes == null || processes.Length < 1)
@@ -91,6 +93,15 @@ namespace BeyondAudio
             if (args != null)
                 pProcess.StartInfo.Arguments = args;
             pProcess.Start();
+        }
+
+        public static string GetPathFromRegistry()
+        {
+            try
+            {
+                return (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\{CF88F4D6-A60E-473D-A1D3-ABB5FE336EFA}_is1", "InstallLocation", null);
+            }
+            catch { return null; }
         }
     }
 }
