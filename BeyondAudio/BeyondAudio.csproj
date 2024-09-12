@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4DA91272-9158-4BFA-A1C9-5E10B1EA255C}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <RootNamespace>BeyondAudio</RootNamespace>
     <AssemblyName>BeyondAudio</AssemblyName>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
@@ -24,7 +24,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -39,7 +39,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -51,8 +51,8 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CoreAudio, Version=2023.8.18.121, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CoreAudio.1.37.0\lib\net481\CoreAudio.dll</HintPath>
+    <Reference Include="CoreAudio, Version=2024.4.4.229, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CoreAudio.1.40.0\lib\net481\CoreAudio.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -75,17 +75,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AudioPolicyConfigFactory.cs" />
-    <Compile Include="AudioPolicyConfigFactoryImplFor21H2.cs" />
-    <Compile Include="AudioPolicyConfigFactoryImplForDownlevel.cs" />
-    <Compile Include="Combase.cs" />
-    <Compile Include="EDataFlow.cs" />
-    <Compile Include="ERole.cs" />
-    <Compile Include="HRESULT.cs" />
-    <Compile Include="IAudioPolicyConfigFactory.cs" />
-    <Compile Include="IAudioPolicyConfigFactoryVariantFor21H2.cs" />
-    <Compile Include="IAudioPolicyConfigFactoryVariantForDownlevel.cs" />
-    <Compile Include="OperatingSystemExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

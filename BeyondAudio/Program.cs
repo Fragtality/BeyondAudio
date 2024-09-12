@@ -1,4 +1,5 @@
 ﻿using CoreAudio;
+using CoreAudio.Undocumented;
 using Microsoft.Win32;
 using System;
 using System.Diagnostics;
@@ -13,54 +14,45 @@ namespace BeyondAudio
 
         public static int Main(string[] args)
         {
+            Console.WriteLine("Getting BATC Path from Registry ...");
             string appPath = GetPathFromRegistry();
             string exePath = $@"{appPath}\{BinaryName}.exe";
             if (args.Length < 1 || string.IsNullOrWhiteSpace(args[0]) || string.IsNullOrWhiteSpace(appPath) || !File.Exists(exePath))
                 return -1;
 
+            Console.WriteLine("Starting BATC ...");
             StartProcess(exePath, appPath);
             Thread.Sleep(500);
 
+            Console.WriteLine($"Searching for Device '{args[0]}' ...");
             MMDevice targetDevice = FindDevice(args[0]);
+
+            Console.WriteLine($"Getting PID for BATC ...");
             var processes = Process.GetProcessesByName("BeyondATC");
 
             if (targetDevice == null || processes == null || processes.Length < 1)
                 return -2;
 
-            if (SetDefaultEndPoint(targetDevice.ID, processes[0].Id))
+            Console.WriteLine($"Switching Audio Output ...");
+            if (SetDefaultEndPoint(targetDevice, processes[0].Id))
                 return 0;
             else
                 return -3;
         }
 
-        protected static bool SetDefaultEndPoint(string deviceId, int processId)
+        protected static bool SetDefaultEndPoint(MMDevice targetDevice, int processId)
         {
             try
             {
                 var audioPolicyConfig = AudioPolicyConfigFactory.Create();
 
-                IntPtr hstring = IntPtr.Zero;
-
-                if (!string.IsNullOrWhiteSpace(deviceId))
-                {
-                    var str = GenerateDeviceId(deviceId);
-                    Combase.WindowsCreateString(str, (uint)str.Length, out hstring);
-                }
-
-                audioPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eMultimedia, hstring);
-                audioPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eConsole, hstring);
-                audioPolicyConfig.SetPersistedDefaultAudioEndpoint((uint)processId, EDataFlow.eRender, ERole.eCommunications, hstring);
+                audioPolicyConfig.SetPersistedDefaultAudioEndpoint(processId, DataFlow.Render, Role.Multimedia | Role.Console | Role.Communications, targetDevice);
 
                 return true;
             }
             catch { }
 
             return false;
-        }
-
-        protected static string GenerateDeviceId(string deviceId)
-        {
-            return $@"\\?\SWD#MMDEVAPI#{deviceId}#{{e6327cad-dcec-4949-ae8a-991e976a79d2}}";
         }
 
         protected static MMDevice FindDevice(string deviceName)
