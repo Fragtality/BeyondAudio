@@ -1,15 +1,16 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Windows;
 
 // Allgemeine Informationen über eine Assembly werden über die folgenden
 // Attribute gesteuert. Ändern Sie diese Attributwerte, um die Informationen zu ändern,
 // die einer Assembly zugeordnet sind.
 [assembly: AssemblyTitle("BeyondAudio")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("https://github.com/Fragtality/BeyondAudio")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Fragtality")]
 [assembly: AssemblyProduct("BeyondAudio")]
-[assembly: AssemblyCopyright("Copyright ©  2024")]
+[assembly: AssemblyCopyright("Copyright © 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -18,8 +19,25 @@ using System.Runtime.InteropServices;
 // COM aus zugreifen müssen, sollten Sie das ComVisible-Attribut für diesen Typ auf "True" festlegen.
 [assembly: ComVisible(false)]
 
-// Die folgende GUID bestimmt die ID der Typbibliothek, wenn dieses Projekt für COM verfügbar gemacht wird
-[assembly: Guid("4da91272-9158-4bfa-a1c9-5e10b1ea255c")]
+//Um mit dem Erstellen lokalisierbarer Anwendungen zu beginnen, legen Sie
+//<UICulture>ImCodeVerwendeteKultur</UICulture> in der .csproj-Datei
+//in einer <PropertyGroup> fest.  Wenn Sie in den Quelldateien beispielsweise Deutsch
+//(Deutschland) verwenden, legen Sie <UICulture> auf \"de-DE\" fest.  Heben Sie dann die Auskommentierung
+//des nachstehenden NeutralResourceLanguage-Attributs auf.  Aktualisieren Sie "en-US" in der nachstehenden Zeile,
+//sodass es mit der UICulture-Einstellung in der Projektdatei übereinstimmt.
+
+//[assembly: NeutralResourcesLanguage("en-US", UltimateResourceFallbackLocation.Satellite)]
+
+
+[assembly: ThemeInfo(
+    ResourceDictionaryLocation.None, //Speicherort der designspezifischen Ressourcenwörterbücher
+                                     //(wird verwendet, wenn eine Ressource auf der Seite nicht gefunden wird,
+                                     // oder in den Anwendungsressourcen-Wörterbüchern nicht gefunden werden kann.)
+    ResourceDictionaryLocation.SourceAssembly //Speicherort des generischen Ressourcenwörterbuchs
+                                              //(wird verwendet, wenn eine Ressource auf der Seite nicht gefunden wird,
+                                              // designspezifischen Ressourcenwörterbuch nicht gefunden werden kann.)
+)]
+
 
 // Versionsinformationen für eine Assembly bestehen aus den folgenden vier Werten:
 //
@@ -28,5 +46,5 @@ using System.Runtime.InteropServices;
 //      Buildnummer
 //      Revision
 //
-[assembly: AssemblyVersion("1.1.0.0")]
-[assembly: AssemblyFileVersion("1.1.0.0")]
+[assembly: AssemblyVersion("1.2.0.0")]
+[assembly: AssemblyFileVersion("1.2.0.0")]
