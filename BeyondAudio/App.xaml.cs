@@ -76,7 +76,8 @@ namespace BeyondAudio
             try
             {
                 var audioPolicyConfig = AudioPolicyConfigFactory.Create();
-                audioPolicyConfig.SetPersistedDefaultAudioEndpoint(processes[0].Id, DataFlow.Render, AppConfiguration.Role, targetDevice);
+                audioPolicyConfig.SetPersistedDefaultAudioEndpoint(processes[0].Id, DataFlow.Render, Role.Multimedia, targetDevice);
+                audioPolicyConfig.SetPersistedDefaultAudioEndpoint(processes[0].Id, DataFlow.Render, Role.Console, targetDevice);
             }
             catch (Exception ex)
             {
