@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using CoreAudio;
 
 namespace BeyondAudio
 {
@@ -24,6 +25,7 @@ namespace BeyondAudio
 
         public string DeviceName { get; set; } = "";
         public int AppDelay { get; set; } = 500;
+        public Role Role { get; set; } = 0;
 
         public static Configuration Load()
         {
